@@ -1,0 +1,33 @@
+{
+  "description": "biu biu biu",
+  "version": "0.0.1",
+  "name": "biu biu biu",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "scripting",
+    "tabs",
+    "activeTab",
+    "downloads"
+  ],
+  "action": {
+    "default_popup": "index.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["pagescript.js"],
+      "matches": ["*://*/*"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.aliexpress.com/", "*://*/*"],
+      "js": ["content-script.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
