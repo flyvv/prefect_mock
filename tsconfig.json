@@ -10,6 +10,7 @@
     "sourceMap": true,
     "baseUrl": "./",
     "strict": true,
+    "types": ["@types/chrome"],
     "paths": {
       "@/*": ["src/*"],
       "@@/*": ["src/.umi/*"]

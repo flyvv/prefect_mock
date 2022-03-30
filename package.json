@@ -21,11 +21,14 @@
   },
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
+    "@types/chrome": "0.0.180",
+    "lodash": "^4.17.21",
     "react": "17.x",
     "react-dom": "17.x",
     "umi": "^3.5.21"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.181",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@umijs/preset-react": "1.x",
