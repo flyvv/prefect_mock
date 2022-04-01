@@ -1,18 +1,16 @@
 import { useEffect } from 'react';
 import { Modal, Tabs } from 'antd';
-import FrontendView from '@/demo/FrontendView';
-import BackendView from '@/demo/BackendView';
-import BackendReport from '@/demo/BackendReport';
-import FrontendReport from '@/demo/FrontendReport';
-import { removePage } from '@/pages/storageActions';
-import AESPluginEvent from '@/utils/mockAesTrackerPluginEvent';
+import FrontendView from './FrontendView';
+import BackendView from './BackendView';
+import BackendReport from './BackendReport';
+import FrontendReport from './FrontendReport';
+import { removePage } from '../../../utils/action';
 
 export default function AppPages({ storageData }) {
   const { config, restPages, currentProject } = storageData;
   const mode = config.mode || 'frontend';
   useEffect(() => {
     if (!config?.userId) return;
-    AESPluginEvent('app_pv', { c1: mode });
   }, [mode, config?.userId]);
   function handleEditPage(targetKey, action) {
     const actionHandler = {
