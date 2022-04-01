@@ -3,13 +3,13 @@ import cls from 'classnames';
 
 import { Menu, Button, Modal, Form, Input } from 'antd';
 
-import { DeleteOutlined, Editoutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
-import { createId } from '../../utils';
+import { createId } from '../../../utils/index';
 
-import { Projectitem } from '@/types/config';
+import { ProjectItem } from '../../types/config';
 
-import isty from './index.module.scss';
+import './index.module.scss';
 import { isEmpty } from 'lodash';
 
 import {
@@ -27,15 +27,15 @@ interface IMenuProps {
 export default function PageNenu(props: IMenuProps) {
   const { className, style = {}, projects } = props;
 
-  const [editProjectid, setEditProjectid] = useState<string>();
-  const uploadinput = useRef<HTMLInputElement>(null);
+  const [editProjectId, seteditProjectId] = useState<string>();
+  const uploadInput = useRef<HTMLInputElement>(null);
 
   // const lactiveProjectKey, setProjectactivekey! . usestatel);
 
   const [activeProject, setActiveProject] = useState<ProjectItem>({});
 
   function createProject({ name, desc }) {
-    updateProject({ id: editProjectid, name, desc });
+    updateProject({ id: editProjectId, name, desc });
     onCloseModal();
   }
 
@@ -44,7 +44,7 @@ export default function PageNenu(props: IMenuProps) {
   }
 
   function onEditProject(item) {
-    setEditProjectid(item.id);
+    seteditProjectId(item.id);
     setActiveProject(item);
   }
 
@@ -58,11 +58,13 @@ export default function PageNenu(props: IMenuProps) {
     });
   }
   function onCloseModal() {
-    setEditProjectid(undefined);
-    setActiveProject();
+    seteditProjectId(undefined);
+    setActiveProject({});
   }
 
+  // @ts-ignore
   const selectedKeys: [string] = [projects.find((p) => p.active)?.id];
+
   return (
     <nav className={cls(className)} style={style}>
       <Menu
@@ -73,21 +75,21 @@ export default function PageNenu(props: IMenuProps) {
       >
         {projects.length
           ? projects.map((item) => (
-              <Menu.Item key={item.id} className={style.projectItem}>
+              <Menu.Item key={item.id} className="projectItem">
                 &nbsp;&nbsp;{item.name}
                 <Button.Group
-                  className={cls('project-action', style.projectAction)}
+                  className={cls('project-action', 'projectAction')}
                   size="small"
                 >
                   <Button
-                    icon={<Editoutlined />}
+                    icon={<EditOutlined />}
                     onClick={() => {
-                      onEditproject(item);
+                      onEditProject(item);
                     }}
                   />
                   <Button
                     disabled={projects.length === 1}
-                    icon={<DeleteDutlined />}
+                    icon={<DeleteOutlined />}
                     onClick={() => {
                       onDeleteProject(item.id);
                     }}
@@ -97,6 +99,90 @@ export default function PageNenu(props: IMenuProps) {
             ))
           : null}
       </Menu>
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          type="ghost"
+          onClick={() => {
+            seteditProjectId(createId());
+          }}
+        >
+          添加项目
+        </Button>
+        <Button
+          type="ghost"
+          onClick={() => {
+            uploadInput.current?.click();
+          }}
+        >
+          导入
+        </Button>
+      </div>
+      <input
+        hidden
+        type="file"
+        ref={uploadInput}
+        accept=".json"
+        onChange={(event) => {
+          const reader = new FileReader();
+          if (!event.target.files?.length) return;
+          reader.readAsText(event.target.files[0], 'UTF-8');
+          reader.onload = (evt) => {
+            const fileString = evt.target?.result;
+            if (!fileString) return;
+            const importInfo = JSON.parse(fileString as string);
+            const projectIndex = projects.findIndex(
+              (p) => p.id == importInfo.exportProject.id,
+            );
+            if (projectIndex !== -1) {
+              if (
+                confirm(
+                  `导入项目${importInfo.exportProject.name}本地已经存在，是否替换?`,
+                )
+              ) {
+                projects[projectIndex] = importInfo.exportProject;
+              } else {
+                importInfo.exportProject.id = createId();
+                projects.push(importInfo.exportProject);
+              }
+            } else {
+              projects.push(importInfo.exportProject);
+            }
+            updateProjects(projects);
+            event.target.value = '';
+          };
+        }}
+      />
+      <Modal
+        destroyOnClose
+        visible={!!editProjectId}
+        title={isEmpty(activeProject) ? '添加项目' : '编辑项目'}
+        footer={null}
+        onCancel={() => onCloseModal()}
+      >
+        <Form labelCol={{ span: 4 }} onFinish={createProject}>
+          <Form.Item
+            label="项目名称"
+            name="name"
+            initialValue={activeProject.name}
+            rules={[{ required: true, message: '填写项目名称' }]}
+          >
+            <Input placeholder="填写项目名称" />
+          </Form.Item>
+
+          <Form.Item
+            label="项目简介"
+            name="desc"
+            initialValue={activeProject.desc}
+          >
+            <Input.TextArea placeholder="项目描述" />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 4 }}>
+            <Button type="primary" htmlType="submit">
+              {isEmpty(activeProject) ? '提交' : '更新'}
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </nav>
   );
 }

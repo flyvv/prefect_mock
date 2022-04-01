@@ -1,0 +1,19 @@
+.projectItem:hover :global {
+  .project-action {
+    display: flex;
+    align-items: center;
+  }
+
+  .projectName {
+    display: inline-block;
+    margin: 0 8px;
+  }
+
+  .projectAction {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+  }
+}
