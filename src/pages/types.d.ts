@@ -1,3 +1,10 @@
+declare module '*.module.less' {
+  const classes: {
+    [key: string]: string;
+  };
+  export default classes;
+}
+
 interface IMockConfig {
   mocking?: boolean; // 全局开关
   defaultRequestContentType?: TRequestContentType;

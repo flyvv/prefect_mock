@@ -3,7 +3,7 @@ import AppHeader from './AppHeader';
 import PageMenu from './Menu';
 import AppPages from './AppPages';
 import { useEffect, useRef, useState } from 'react';
-import { createId } from '@/pages/utils';
+import { createId } from '../../utils';
 
 type TStorageData = {
   pages: IPage[];
@@ -18,10 +18,10 @@ type TStorageData = {
 };
 export default function App() {
   // const [apiFormVisible, setApiFormVisible]=useState(false);
-  const [storageData, setStorageData] = useState<TstorageData>();
+  const [storageData, setStorageData] = useState<TStorageData>();
   const pageKey = useRef<string>();
   useEffect(() => {
-    chrome.tabs.query(
+    chrome?.tabs?.query?.(
       {
         active: true,
         lastFocusedWindow: true,
@@ -29,14 +29,13 @@ export default function App() {
       (tabs) => {
         if (!tabs?.[0]?.url) return;
         const pageUrl = new URL(tabs[0].url);
-        const currenturl = pageurl.host + pageurl.pathname;
+        const currentUrl = pageUrl.host + pageUrl.pathname;
         const currentTitle = tabs[0].title;
         pageKey.current = currentUrl;
         chrome.storage.local.get().then((res) => {
           const storageProjects: IProject = res.projects?.find?.(
             (p) => p.active,
           );
-          setUserId(res.config?.userId);
           let currentProject;
           if (storageProjects) {
             currentProject = storageProjects;
@@ -68,11 +67,11 @@ export default function App() {
             projects: res.projects,
             pages: currentVersion?.pages,
             restPages: currentVersion?.pages.filter(
-              (page) => page.url !== currenturl,
+              (page) => page.url !== currentUrl,
             ),
             runtimeResponse: res?.runtimeResponse,
             currentPage: currentVersion?.pages.find(
-              (page) => page.url === currenturl,
+              (page) => page.url === currentUrl,
             ),
             currentTitle,
             currentUrl,
@@ -82,12 +81,12 @@ export default function App() {
     );
 
     chrome.storage.onChanged.addListener((changes, namespace) => {
-      for (const [key, { oldvalue, newvalue }] of Object.entries(changes)) {
+      for (const [key, { oldValue, newValue }] of Object.entries(changes)) {
         switch (key) {
           case 'projects': {
-            console.log('storage projects change', oldvalue, newvalue);
+            console.log('storage projects change', oldValue, newValue);
             const currentProject: IProject = newValue?.find?.((p) => p.active);
-            const cucrentversion: IVersion = currentProject?.versions?.find(
+            const currentVersion: IVersion = currentProject?.versions?.find(
               (p) => !p.locked,
             );
             setStorageData((state) => {
@@ -95,12 +94,12 @@ export default function App() {
               return {
                 ...state,
                 projects: newValue,
-                pages: currentVersiom?.pages,
-                restPages: currentversion?.pages.filter(
+                pages: currentVersion?.pages,
+                restPages: currentVersion?.pages.filter(
                   (page) => page.url !== pageKey.current,
                 ),
                 currentPage: currentVersion?.pages.find(
-                  (page) => page.url === pagekey.current,
+                  (page) => page.url === pageKey.current,
                 ),
                 currentProject,
               };
@@ -110,7 +109,6 @@ export default function App() {
           case 'config':
             setStorageData((state) => {
               if (!state) return state;
-              setUserId(newValue.userId);
               return {
                 ...state,
                 config: newValue,
@@ -121,7 +119,7 @@ export default function App() {
       }
     });
   }, []);
-  if (!storageData || istoragedata.config || istorageData.projects)
+  if (!storageData || !storageData.config || !storageData.projects)
     return <div>请刷新页面</div>;
 
   return (
@@ -133,9 +131,7 @@ export default function App() {
       }}
     >
       <AppHeader config={storageData.config} />
-      <main
-        className={`body ${(storageData, config.mocking ? '' : 'disable')}`}
-      >
+      <main className={`body ${storageData.config.mocking ? '' : 'disable'}`}>
         <PageMenu className="app-menu" projects={storageData.projects} />
         <section className="content">
           <AppPages storageData={storageData} />

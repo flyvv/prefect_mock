@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export function formatJson(value: any) {
   try {
     if (typeof value === 'string') {
@@ -7,3 +9,7 @@ export function formatJson(value: any) {
   } catch (e) {}
   return value;
 }
+
+export const createId = () => {
+  return uuidv4();
+};

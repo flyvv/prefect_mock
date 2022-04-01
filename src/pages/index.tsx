@@ -2,7 +2,7 @@ import App from './App';
 import set from 'lodash/set';
 
 if (!chrome.storage) {
-  const stragestring = localstorage.getItem('_zzMock');
+  const strageString = localStorage.getItem('__zzMock');
   let storage = strageString
     ? JSON.parse(strageString)
     : {
@@ -16,12 +16,14 @@ if (!chrome.storage) {
   set(window.chrome, ['storage', 'local', 'get'], () => {
     return Promise.resolve(storage);
   });
+
   set(window.chrome, ['storage', 'local', 'set'], (data) => {
     storage = { ...storage, ...data };
-    localStorage.setItem('_zzMock', JSON.stringify(storage));
+    localStorage.setItem('__zzMock', JSON.stringify(storage));
     return Promise.resolve(data);
   });
-  set(window, chrome, ['tabs', 'query'], (data, callback) => {
+
+  set(window.chrome, ['tabs', 'query'], (data, callback) => {
     callback([
       {
         id: '123123',
