@@ -86,6 +86,7 @@ export default function App() {
           case 'projects': {
             console.log('storage projects change', oldValue, newValue);
             const currentProject: IProject = newValue?.find?.((p) => p.active);
+            // @ts-ignore
             const currentVersion: IVersion = currentProject?.versions?.find(
               (p) => !p.locked,
             );

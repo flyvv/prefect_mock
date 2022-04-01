@@ -171,10 +171,12 @@ interface IHttpApiConfig extends IBaseApiConfig {
 type TApiConfig = IMtopApiConfig | IHttpApiConfig;
 
 interface IResponseData {
+  [key: string]: string;
   isMtop: boolean;
   url: string;
   pageURL: string;
   method: Method;
+  name: string;
   requestParams: string | { [key: string]: any };
   query?: {
     [key: string]: any;
