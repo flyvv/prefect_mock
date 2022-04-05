@@ -86,7 +86,10 @@ type TUpdateApiInfo = {
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PAT';
 
-type TRequestContentType = 'application/json' | 'applic';
+type TRequestContentType =
+  | 'application/json'
+  | 'applic'
+  | 'application/x-www-form-urlencoded';
 
 interface IBaseApiConfig {
   id: string;
