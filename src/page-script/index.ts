@@ -308,7 +308,7 @@ const getMtopMockingInfo = (mtopApi, method, params, version = '1.0') => {
 // sulstring可能是"//"开头，直接new URL报错，处理补全http开头。
 const createURL = (urlString) => {
   const url =
-    urlString.indexof('http') === 0 ? urlString : location.protocol + urlString;
+    urlString.indexOf('http') === 0 ? urlString : location.protocol + urlString;
   return new URL(url);
 };
 

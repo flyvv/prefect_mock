@@ -35,7 +35,7 @@
     const script = document.createElement('script');
     script.type = 'text/javascript';
 
-    script.src = `chrome-extension:${chrome.runtime.id}/page-script/index.js`;
+    script.src = `chrome-extension:${chrome.runtime.id}/extension/page-script/index.js`;
     document.getElementsByTagName('html')[0].prepend(script);
     script.onload = () => {
       onReady?.();

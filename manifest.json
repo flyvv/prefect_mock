@@ -4,7 +4,7 @@
   "name": "biu biu biu",
   "manifest_version": 3,
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "extension/background/index.js"
   },
   "permissions": [
     "storage",
@@ -19,14 +19,14 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["pagescript.js"],
+      "resources": ["extension/page-script/index.js"],
       "matches": ["*://*/*"]
     }
   ],
   "content_scripts": [
     {
       "matches": ["*://*.aliexpress.com/", "*://*/*"],
-      "js": ["content-script.js"],
+      "js": ["extension/content-script/index.js"],
       "run_at": "document_start"
     }
   ]

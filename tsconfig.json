@@ -23,10 +23,9 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "ice": [".ice"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src", ".ice"],
+  "include": ["src"],
   "exclude": ["node_modules", "build", "public"]
 }

@@ -32,7 +32,9 @@ interface IProps {
 export default function AppHeader(props: IProps) {
   const [config, setConfig] = useState<IMockConfig>(props.config);
 
-  const [modalVisible, setModalVisible] = useState(!props.config?.userId);
+  const [modalVisible, setModalVisible] = useState(
+    props?.config?.httpApiHostWhiteList?.length > 0,
+  );
 
   useEffect(() => {
     chrome.storage.local.set({ config });
@@ -138,7 +140,7 @@ export default function AppHeader(props: IProps) {
                         : [hostString];
                       setConfig((setting) => ({
                         ...setting,
-                        httpApiHostwhitelist: list,
+                        httpApiHostWhiteList: list,
                       }));
                     }}
                   >
@@ -146,7 +148,13 @@ export default function AppHeader(props: IProps) {
                   </Button>
                 </div>
               )}
-            ></Select>
+            >
+              {config?.httpApiHostWhiteList?.map((v) => {
+                <Select.Option value={v} key={v}>
+                  {v}
+                </Select.Option>;
+              })}
+            </Select>
           </Form.Item>
 
           <Form.Item

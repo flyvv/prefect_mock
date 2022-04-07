@@ -1,0 +1,77 @@
+@grayBorder: 1px solid #e8e8e8;
+@gutter: 16px;
+
+html,
+body {
+  width: 100%;
+  min-width: 800px;
+  min-height: 600px;
+  height: 100vh;
+}
+
+#app {
+  height: 100vh;
+}
+
+.popup {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 @gutter;
+  border-bottom: @grayBorder;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  position: relative;
+
+  &.disable {
+    &:after {
+      content: '请开启插件代理能力';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+    }
+  }
+}
+
+.jsonCode {
+  max-height: 250px;
+  width: 540px;
+  overflow: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  background: #f9f9f9;
+  padding: 16px;
+  font-size: 13px;
+  color: #595959;
+}
+
+@menuWidth: 160px;
+
+.app-meun {
+  width: @menuWidth;
+  flex: @menuWidth 0 0;
+  height: 100%;
+  border-right: @grayBorder;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  padding: @gutter;
+}

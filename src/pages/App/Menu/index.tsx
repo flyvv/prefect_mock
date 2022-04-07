@@ -9,7 +9,7 @@ import { createId } from '../../../utils/index';
 
 import { ProjectItem } from '../../types/config';
 
-import './index.module.scss';
+import './index.less';
 import { isEmpty } from 'lodash';
 
 import {
@@ -66,7 +66,7 @@ export default function PageNenu(props: IMenuProps) {
   const selectedKeys: [string] = [projects.find((p) => p.active)?.id];
 
   return (
-    <nav className={cls(className)} style={style}>
+    <nav className={className} style={style}>
       <Menu
         selectedKeys={selectedKeys}
         onClick={({ key }) => {
@@ -75,7 +75,7 @@ export default function PageNenu(props: IMenuProps) {
       >
         {projects.length
           ? projects.map((item) => (
-              <Menu.Item key={item.id} className="projectItem">
+              <Menu.Item key={item.id} className="project-item">
                 &nbsp;&nbsp;{item.name}
                 <Button.Group
                   className={cls('project-action', 'projectAction')}

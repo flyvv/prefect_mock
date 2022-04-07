@@ -6,13 +6,13 @@ export default defineConfig({
     memo.devServer.hot = false as any;
     memo.plugins.delete('hmr');
     memo
-      .entry('background')
+      .entry('/extension/background/index')
       .add('./src/background/index.ts')
       .end()
-      .entry('content-script')
+      .entry('/extension/content-script/index')
       .add('./src/content-script/index.ts')
       .end()
-      .entry('page-script')
+      .entry('/extension/page-script/index')
       .add('./src/page-script/index.ts')
       .end();
   },
