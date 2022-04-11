@@ -32,8 +32,10 @@ interface IProps {
 export default function AppHeader(props: IProps) {
   const [config, setConfig] = useState<IMockConfig>(props.config);
 
+  console.log(props.config, 'config');
+
   const [modalVisible, setModalVisible] = useState(
-    props?.config?.httpApiHostWhiteList?.length > 0,
+    !props.config?.httpApiHostWhiteList?.length < 0,
   );
 
   useEffect(() => {
@@ -125,7 +127,7 @@ export default function AppHeader(props: IProps) {
               onChange={(list) => {
                 setConfig((setting) => ({
                   ...setting,
-                  httpApiHostwhiteList: list,
+                  httpApiHostWhiteList: list,
                 }));
               }}
               dropdownRender={(menu) => (

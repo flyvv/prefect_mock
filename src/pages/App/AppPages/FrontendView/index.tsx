@@ -366,6 +366,8 @@ const FrontendView = ({
             style={{ marginBottom: 10 }}
             onClick={() => {
               setPageInfo((page: IPage) => {
+                console.log(page, 'page');
+
                 const pageInfo = { ...page, apiCapture: !page.apiCapture };
                 updatePageInfo(pageInfo);
                 return pageInfo;

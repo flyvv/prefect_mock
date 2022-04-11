@@ -48,7 +48,7 @@
     const {
       mocking,
       defaultRequestContentType,
-      httpApiHostwhiteList,
+      httpApiHostWhiteList,
       mode,
       ignoreParams,
     } = storage.config;
@@ -60,10 +60,10 @@
     const pageMockConfig: IPageConfig = {
       mocking,
       defaultRequestContentType,
-      httpApiHostwhiteList,
+      httpApiHostWhiteList,
       mode,
       ignoreParams,
-      apiCapture: !apiCapture,
+      apiCapture: !!apiCapture,
       apis,
     };
 
@@ -78,7 +78,7 @@
 
     let isApiInWhiteList = responseData.isMtop;
     if (!responseData.isMtop && responseData.url && responseData.host) {
-      isApiInWhiteList = pageInfo?.httpApiHostwhiteList?.includes(
+      isApiInWhiteList = pageInfo?.httpApiHostWhiteList?.includes(
         responseData.host,
       );
     }
@@ -278,7 +278,7 @@
   const handleMessage = (messgaeString) => {
     const message: IMessage = JSON.parse(messgaeString);
     switch (message.type) {
-      case 'requestData':
+      case 'responseData':
         storageActionQueueUp(() => handleResponseData(message.data));
         break;
     }
@@ -306,7 +306,7 @@
       switch (request.type) {
         case 'updatePageMockingData':
           try {
-            bridgeDiv.innerText = JSON.stringify(request, pageMockConfig);
+            bridgeDiv.innerText = JSON.stringify(request.pageMockConfig);
           } catch (e) {
             console.warn('解析pageMockConfig出错口', e);
           }

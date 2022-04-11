@@ -98,7 +98,6 @@ const createMessageBridge = () => {
     getPageMockConfig,
     bridgeDiv,
     postPageMessage,
-    postPageMessage,
   };
 };
 
@@ -159,7 +158,7 @@ const modifyResponse = (response, mappings) => {
                 if (index?.length) {
                   setIn(
                     response,
-                    mockDataPath.replace(/\[\]\./g, () => `${index.shift()}.`),
+                    mockDataPath.replace(/\[\]\./g, () => `.${index.shift()}.`),
                     getIn(data, path),
                   );
                 }
@@ -199,7 +198,7 @@ const { getPageMockConfig, postPageMessage } = createMessageBridge();
 // 获取http接口代理信息
 const getHttpMockingInfo = (xhr, request, method, url, query) => {
   const mockConfig = getPageMockConfig();
-  if (!mockConfig?.httpApiHostwhiteList?.includes(url.host)) {
+  if (!mockConfig?.httpApiHostWhiteList?.includes(url.host)) {
     return {
       appMockingEnable: mockConfig.mocking,
       apiMockingEnable: false,
@@ -375,7 +374,7 @@ const createURL = (urlString) => {
 
             postMtopResponseData({
               data: modifiedMtopOptions.data,
-              nethod: modifiedMtopOptions.method,
+              method: modifiedMtopOptions.method,
               version: modifiedMtopOptions.v,
               url: modifiedMtopOptions.url,
               response: res,
@@ -419,12 +418,12 @@ const createURL = (urlString) => {
     },
   };
   if (lib) {
-    _mtop = lib.stop || lib._mtop;
+    _mtop = lib.stop || lib.__mtop;
     if (_mtop) {
       _mtop.request = createMtopRequest(_mtop.request);
     }
     Object.defineProperty(lib, 'mtop', descriptor);
-    Object.defineProperty(lib, '_mtop', descriptor);
+    Object.defineProperty(lib, '__mtop', descriptor);
   } else {
     console.log('no lib');
 
@@ -434,9 +433,9 @@ const createURL = (urlString) => {
       },
       set(libValue: any) {
         lib = libValue;
-        _mtop = lib.mtop || lib?._mtop;
+        _mtop = lib.mtop || lib?.__mtop;
         Object.defineProperty(lib, 'mtop', descriptor);
-        Object.defineProperty(lib, 'mtop', descriptor);
+        Object.defineProperty(lib, '__mtop', descriptor);
       },
     });
   }
@@ -488,7 +487,7 @@ const createURL = (urlString) => {
     }
     const args = [...arguments];
     args[0] = actualMethod;
-    args[1].actualURL.href;
+    args[1] = actualURL.href;
     open.apply(this, args);
   };
   XMLHttpRequest.prototype.setRequestHeader = function (key, value) {
@@ -584,7 +583,7 @@ const createURL = (urlString) => {
 
     let _onreadystatechange = xhr.onreadystatechange;
     xhr.onreadystatechange = () => {
-      if (xhr.readyState == 4 && !postResult) {
+      if (xhr.readyState === 4 && !postResult) {
         postResult = true;
         postHttpResponseData(xhr, xhrMap.get(xhr), sendParams);
 

@@ -49,7 +49,7 @@ interface IPageConfig {
   mocking: boolean; // 全局开关
   apiCapture: boolean; // 页面级开启api抓取
   mode: 'backend' | 'frontend';
-  httpApiHostwhiteList: string[];
+  httpApiHostWhiteList: string[];
   ignoreParams: string[];
   apis: TApiConfig[];
   defaultRequestContentType: TRequestContentType;

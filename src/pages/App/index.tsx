@@ -27,21 +27,15 @@ export default function App() {
         lastFocusedWindow: true,
       },
       (tabs) => {
-        console.log('111', tabs);
-
         if (!tabs?.[0]?.url) return;
         const pageUrl = new URL(tabs[0].url);
-        console.log('pageUrl', pageUrl);
 
         const currentUrl = pageUrl.host + pageUrl.pathname;
-        console.log('currentUrl', currentUrl);
         const currentTitle = tabs[0].title;
 
         pageKey.current = currentUrl;
 
         chrome.storage.local.get().then((res) => {
-          console.log(res, 'res');
-
           const storageProjects: IProject = res.projects?.find?.(
             (p) => p.active,
           );
@@ -106,8 +100,6 @@ export default function App() {
                 projects: newValue,
                 pages: currentVersion?.pages,
                 restPages: currentVersion?.pages.filter((page) => {
-                  console.log(page.url, 'page.url ');
-
                   return page.url !== pageKey.current;
                 }),
                 currentPage: currentVersion?.pages.find(
@@ -131,7 +123,6 @@ export default function App() {
       }
     });
   }, []);
-  console.log(storageData, '999');
 
   if (!storageData || !storageData.config || !storageData.projects)
     return <div>请刷新页面</div>;

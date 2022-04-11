@@ -56,7 +56,7 @@ const getPageMockConfigFromStorage = async (currentPageUrl?: string) => {
   const {
     mocking,
     defaultRequestContentType,
-    httpApiHostwhiteList,
+    httpApiHostWhiteList,
     mode,
     ignoreParams,
   } = storage.config;
@@ -70,7 +70,7 @@ const getPageMockConfigFromStorage = async (currentPageUrl?: string) => {
   const pageMockConfig: IPageConfig = {
     mocking,
     defaultRequestContentType,
-    httpApiHostwhiteList,
+    httpApiHostWhiteList,
     mode,
     ignoreParams,
     apiCapture: !!apiCapture,
@@ -81,6 +81,7 @@ const getPageMockConfigFromStorage = async (currentPageUrl?: string) => {
 
 const handleUpdatePageInfo = async (data: TUpdateApiInfo) => {
   const res = await getPageMockConfigFromStorage(data.url);
+
   if (!res) return;
 
   const { pageInfo, updateProjects } = res;
@@ -90,7 +91,7 @@ const handleUpdatePageInfo = async (data: TUpdateApiInfo) => {
   Object.keys(data).forEach((key) => {
     pageInfo[key] = data[key];
   });
-  console.log('handleUpdatePageInfo');
+
   return updateProjects();
 };
 const handleRemovePage = async ({ url }) => {
