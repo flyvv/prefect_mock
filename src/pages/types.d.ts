@@ -79,7 +79,7 @@ type TUpdateApiInfo = {
     [key: string]: any;
   };
   scenes?: IScene[];
-  // defaultResponseText?: string; version?: string;
+  // defaultresponseText?: string; version?: string;
   debugInfo?: IDebugInfoMtop | IDebugInfoHttp;
   requestContentType?: TRequestContentType;
 };
@@ -156,7 +156,7 @@ interface IDebugInfoHttp extends DebugInfoBase {
   requestContentType?: TRequestContentType;
 }
 
-// defaultResponseText?:string;
+// defaultresponseText?:string;
 //变更前的接口数据，以便产出报告对比 previousApi?:IBaseApiConfig;
 
 interface IMtopApiConfig extends IBaseApiConfig {

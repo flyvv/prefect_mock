@@ -1,10 +1,16 @@
 import { defineConfig } from 'umi';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 
 export default defineConfig({
   copy: ['manifest.json'] as any,
   chainWebpack(memo, { env }) {
     memo.devServer.hot = false as any;
     memo.plugins.delete('hmr');
+    memo.plugin('monaco-editor').use(MonacoWebpackPlugin, [
+      {
+        languages: ['yaml'],
+      },
+    ]);
     memo
       .entry('/extension/background/index')
       .add('./src/background/index.ts')

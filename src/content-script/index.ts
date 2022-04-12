@@ -71,6 +71,8 @@
   };
 
   const handleResponseData = async (responseData: IResponseData) => {
+    console.log(responseData, '----responseData');
+
     // 处理抓取数据
     const res = await getPageMockConfigFromStorage();
     if (!res) return;
@@ -200,7 +202,7 @@
           url: responseData.url,
           method: responseData.method,
           scenes: [scene],
-          // defaultResponseText: responseText,
+          // defaultresponseText: responseText,
           version: responseData.version,
           isMtop: true,
           latestParams: requestParams,
@@ -217,7 +219,7 @@
           url: responseData.url,
           method: responseData.method,
           scenes: [scene],
-          // defaultResponseText: responseText,
+          // defaultresponseText: responseText,
           requestContentType: requestContentType as TRequestContentType,
           latestParams: requestParams,
         });
@@ -277,6 +279,8 @@
 
   const handleMessage = (messgaeString) => {
     const message: IMessage = JSON.parse(messgaeString);
+    console.log(message, '----message---');
+
     switch (message.type) {
       case 'responseData':
         storageActionQueueUp(() => handleResponseData(message.data));

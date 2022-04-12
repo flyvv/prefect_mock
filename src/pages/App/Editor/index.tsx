@@ -2,6 +2,8 @@ import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor';
 import { useEffect, useState } from 'react';
 import { message, Button } from 'antd';
 function Editor(props: MonacoEditorProps) {
+  console.log(props, 'propsval');
+
   const [value, setValue] = useState<string | undefined | null>(
     props.defaultValue || props.value,
   );

@@ -1,6 +1,6 @@
 import { Tabs } from 'antd';
 import { useCallback, useState } from 'react';
-import { SceneEditor } from './SceneEditor';
+import { SceneEditor } from './sceneEditor';
 // import { IScene } from '@/types';
 import { createId } from '../../../utils/index';
 import produce from 'immer';

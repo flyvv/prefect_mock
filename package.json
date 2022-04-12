@@ -3,6 +3,7 @@
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
+    "dev": "tsc --project --watch",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
@@ -20,34 +21,35 @@
     ]
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.5.0",
+    "@ant-design/pro-layout": "^6.34.10",
     "@types/chrome": "0.0.180",
-    "lodash": "^4.17.21",
-    "react": "17.x",
-    "react-dom": "17.x",
     "ahooks": "^3.1.1",
     "classnames": "^2.3.1",
     "html-to-image": "^1.9.0",
     "immer": "^9.0.7",
-    "moment": "^2.24.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.2",
     "monaco-editor": "^0.31.1",
+    "monaco-editor-webpack-plugin": "^7.0.1",
     "node-fetch": "^3.2.0",
     "prop-types": "^15.5.8",
+    "react": "17.x",
+    "react-dom": "17.x",
     "react-monaco-editor": "^0.46.0",
-    "uuid": "^8.3.2",
-    "umi": "^3.5.21"
+    "umi": "^3.5.22",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.181",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
+    "@types/react": "^17.0.44",
+    "@types/react-dom": "^17.0.15",
     "@umijs/preset-react": "1.x",
-    "@umijs/test": "^3.5.21",
+    "@umijs/test": "^3.5.22",
     "css-loader": "^6.7.1",
     "lint-staged": "^10.0.7",
-    "prettier": "^2.2.0",
+    "prettier": "^2.6.2",
     "style-loader": "^3.3.1",
-    "typescript": "^4.1.2",
+    "typescript": "^4.6.3",
     "yorkie": "^2.0.0"
   }
 }
