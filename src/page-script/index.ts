@@ -224,7 +224,7 @@ const getHttpMockingInfo = (xhr, request, method, url, query) => {
           {},
         );
       } catch (e) {
-        console.warn('解析请求参数错误:', e);
+        console.warn('解析请求参数错误:11', e);
       }
     }
   }
