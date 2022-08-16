@@ -56,7 +56,7 @@ export default function AppHeader(props: IProps) {
         <Radio.Group
           options={[
             { label: '前端视角', value: 'frontend' },
-            { label: '后端视角', value: 'backend' },
+            { label: '后端视角', value: 'backend', disabled: true },
           ]}
           onChange={(ev) => {
             setConfig((setting) => ({ ...setting, mode: ev.target.value }));
@@ -75,7 +75,6 @@ export default function AppHeader(props: IProps) {
           }}
         />
         <Button.Group size="small" style={{ marginLeft: 10 }}>
-          <Button icon={<InfoCircleOutlined />} />
           <Button
             icon={<SettingOutlined />}
             onClick={() => {

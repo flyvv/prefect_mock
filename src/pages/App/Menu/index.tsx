@@ -67,6 +67,24 @@ export default function PageNenu(props: IMenuProps) {
 
   return (
     <nav className={className} style={style}>
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          type="ghost"
+          onClick={() => {
+            seteditProjectId(createId());
+          }}
+        >
+          添加项目
+        </Button>
+        <Button
+          type="ghost"
+          onClick={() => {
+            uploadInput.current?.click();
+          }}
+        >
+          导入
+        </Button>
+      </div>
       <Menu
         selectedKeys={selectedKeys}
         onClick={({ key }) => {
@@ -99,24 +117,7 @@ export default function PageNenu(props: IMenuProps) {
             ))
           : null}
       </Menu>
-      <div style={{ textAlign: 'center' }}>
-        <Button
-          type="ghost"
-          onClick={() => {
-            seteditProjectId(createId());
-          }}
-        >
-          添加项目
-        </Button>
-        <Button
-          type="ghost"
-          onClick={() => {
-            uploadInput.current?.click();
-          }}
-        >
-          导入
-        </Button>
-      </div>
+
       <input
         hidden
         type="file"

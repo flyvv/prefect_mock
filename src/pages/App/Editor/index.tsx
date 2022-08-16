@@ -17,7 +17,7 @@ function Editor(props: MonacoEditorProps) {
       let newVal = val;
       if (!val) return val;
       try {
-        newVal = JSON.stringify(JSON.parse(val), null, '');
+        newVal = JSON.stringify(JSON.parse(val), null, '  ');
       } catch (e) {
         message.warn('JSON 解析出错');
       }

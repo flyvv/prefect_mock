@@ -77,6 +77,7 @@ const createMessageBridge = () => {
   document.body.append(bridgeDiv);
 
   const config = { childList: true };
+  // const observer = new MutationObserver()
   const observer = new MutationObserver(() => {
     console.log('MutationObserver pagescript', bridgeDiv.innerText);
     try {
@@ -462,12 +463,8 @@ const createURL = (urlString) => {
 
     xhrMap.set(this, { method, url, query });
 
-    const {
-      appMockingEnable,
-      mode,
-      debugInfo,
-      apiCapture,
-    } = getHttpMockingInfo(this, null, method, url, query);
+    const { appMockingEnable, mode, debugInfo, apiCapture } =
+      getHttpMockingInfo(this, null, method, url, query);
     if (!appMockingEnable || mode === 'frontend' || apiCapture) {
       open.apply(this, arguments);
       return;

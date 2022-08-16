@@ -8,7 +8,7 @@ export default defineConfig({
     memo.plugins.delete('hmr');
     memo.plugin('monaco-editor').use(MonacoWebpackPlugin, [
       {
-        languages: ['yaml'],
+        languages: ['json'],
       },
     ]);
     memo
